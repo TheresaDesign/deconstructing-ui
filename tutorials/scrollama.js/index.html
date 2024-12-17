@@ -5,9 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scrollama.js Tutorial</title>
     <link rel="stylesheet" href="./style.css" />
+    <style>
+		#scrolly {
+			position: relative;
+		}
+
+		article {
+			position: relative;
+			padding: 0 1rem;
+			margin: 0 auto;
+			width: 33%;
+		}
+
+		.step {
+			margin: 2rem auto 4rem auto;
+			background-color: #3b3b3b;
+			color: #fff;
+            padding: 200px 0px;
+		}
+
+		.step.is-active {
+			background-color: goldenrod;
+			color: #3b3b3b;
+		}
+
+		.step p {
+			text-align: center;
+			padding: 1rem;
+			font-size: 1.5rem;
+		}
+    </style>
 </head>
+
 <body>
-    <h1>Welcome to Scrollama.js Tutorial</h1>
-    <script src="./libraries/scrollama.min.js"></script>
+    <main>
+		<section id="intro">
+			<h1 class="intro__hed">My fruit basket</h1>
+			<p class="intro__dek">
+				Start scrolling to see how it works.
+			</p>
+		</section>
+        <section>
+        <section id="graphic">
+            <div class="graphic__container">
+                <!-- Here we include anything that needs to changed based on trigger -->
+                <div id="step__counter">
+                    <p>My fruit basket</p>
+                </div>
+            </div>
+        </section>
+        <!-- Here we include the individual steps -->
+		<section id="scrolly">
+			<article>
+				<div class="step" data-step="1">
+					<p>Strawberry</p>
+				</div>
+				<div class="step" data-step="2">
+					<p>Banana</p>
+				</div>
+				<div class="step" data-step="3">
+					<p>Peach</p>
+				</div>
+				<div class="step" data-step="4">
+					<p>Kiwi</p>
+				</div>
+                <div class="step" data-step="5">
+                    <p>Apple</p>
+                </div>
+					
+				
+			</article>
+		</section>
+    </section>
+		<section id="outro"></section>
+	</main>
+    <script src="./libraries/scrollama.min.js">
+
+    </script>
+    <script>
+        var scrolly = document.querySelector('#scrolly');
+        var article = document.querySelector ("article");
+        var graphic = document.querySelector ("#step__counter");
+        var step= document.querySelector (".step");
+
+        var scroller = scrollama()
+        var fruit = ['🍓','🍌','🍑','🥝','🍎']
+
+        function handleStepEnter(response){
+                console.log(response)
+                response.element.classList.add("is-active");
+                graphic.innerHTML = "<p>My fruit is index number:" +(response.index + 1)
+            }
+
+        function handleStepExit(response){
+            console.log(response)
+            response.element.classList.remove("is-active");
+        }
+
+        function init() {
+
+            scroller
+                .setup({
+                step: "#scrolly article .step",
+                progress: false,
+                debug: true,
+                offset: 0.5
+            })
+            .onStepEnter(handleStepEnter)
+            .onStepExit(handleStepExit)
+        }
+
+        init()
+    </script>
 </body>
 </html>
